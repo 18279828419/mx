@@ -3,7 +3,6 @@
     <div class="header">
       <div class="logo" @click="toHome">
         <img src="./../../assets/logo.png" alt="" />
-        <span>小梦想</span>
       </div>
       <div class="project">
         <span
@@ -98,15 +97,6 @@ export default {
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-      }
-      span {
-        font-family: "LiSu";
-        font-size: 36px;
-        line-height: 68px;
-        font-weight: 400;
-        color: #f0f0f0;
-        display: inline-block;
-        margin-left: 60px;
       }
     }
     .project {
