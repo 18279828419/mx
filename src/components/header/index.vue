@@ -1,32 +1,74 @@
 <template>
   <div class="headerWrap">
     <div class="header">
-      <img src="./../../assets/logo.png" alt="" />
-      <div class="project">
-        <span>vue</span>
-        <span>jquery</span>
-        <span>react</span>
-        <span>git</span>
+      <div class="logo" @click="toHome">
+        <img src="./../../assets/logo.png" alt="" />
+        <span>小梦想</span>
       </div>
-      <div class="menuList">
-        <ul>
-          <li>推荐</li>
-          <li>推荐</li>
-          <li>推荐</li>
-          <li>推荐</li>
-          <li>推荐</li>
-          <li>推荐</li>
-          <li>推荐</li>
-        </ul>
+      <div class="project">
+        <span
+          :class="item.id === state.headerActiveId ? 'isActive' : ''"
+          v-for="item in state.headerList"
+          :key="item.id"
+          @click="headerSelected(item.id)"
+        >
+          {{ item.name }}
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { reactive, onMounted } from "vue";
+import { useRouter } from "vue-router";
 export default {
-  data() {
-    return {};
+  setup() {
+    const router = useRouter();
+    const state = reactive({
+      headerList: [
+        { id: 0, name: "首页" },
+        { id: 1, name: "vue" },
+        { id: 2, name: "react" },
+        { id: 3, name: "git" },
+        { id: 4, name: "我的" },
+        { id: 5, name: "其他" }
+      ],
+      headerActiveId: 0 // 头部点击项id
+    });
+    // 点击头部菜单
+    const headerSelected = id => {
+      state.headerActiveId = id;
+      switch (id) {
+        case 0:
+          router.push({ path: "/" });
+          break;
+        case 1:
+          router.push({ path: "/vue" });
+          break;
+        case 2:
+          router.push({ path: "/vue" });
+          break;
+        case 3:
+          router.push({ path: "/vue" });
+          break;
+        case 4:
+          router.push({ path: "/vue" });
+          break;
+        case 5:
+          router.push({ path: "/vue" });
+          break;
+      }
+    };
+    // 回到首页
+    const toHome = () => {
+      router.push({
+        name: "Home"
+      });
+    };
+    // 组件已挂载
+    onMounted(() => {});
+    return { state, headerSelected, toHome, router };
   }
 };
 </script>
@@ -44,15 +86,31 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    img {
-      display: inline-block;
-      width: 54px;
-      height: 48px;
+    .logo {
+      height: 68px;
+      position: relative;
       cursor: pointer;
+      img {
+        display: inline-block;
+        width: 54px;
+        height: 48px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      span {
+        font-family: "LiSu";
+        font-size: 36px;
+        line-height: 68px;
+        font-weight: 400;
+        color: #f0f0f0;
+        display: inline-block;
+        margin-left: 60px;
+      }
     }
     .project {
-      width: 260px;
+      width: 400px;
       display: flex;
       justify-content: space-between;
       span {
@@ -65,33 +123,8 @@ export default {
           color: #00abff;
         }
       }
-    }
-    .menuList {
-      width: 90px;
-      background: #fff;
-      border-radius: 6px;
-      position: absolute;
-      left: -100px;
-      top: 80px;
-      ul {
-        min-height: 300px;
-        width: 90px;
-        border-radius: 6px;
-        padding: 15px 0;
-        li {
-          color: #333;
-          height: 32px;
-          width: 70px;
-          font-size: 16px;
-          line-height: 32px;
-          text-align: center;
-          border-radius: 8px;
-          margin: 3px auto;
-          cursor: pointer;
-          &:hover {
-            background: #00abff;
-          }
-        }
+      .isActive {
+        color: #00abff;
       }
     }
   }

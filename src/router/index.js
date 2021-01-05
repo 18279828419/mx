@@ -6,6 +6,15 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/Err404",
+    name: "Err404",
+    component: () => import("../views/404/Err404.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/Err404"
   }
   // {
   //   path: "/Home",
