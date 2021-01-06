@@ -23,7 +23,7 @@ export default {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background-image: url("./../../assets/images/404error.jpg");
+    background-image: url("https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/404error.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     p {

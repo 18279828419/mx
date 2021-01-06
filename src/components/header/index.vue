@@ -2,7 +2,16 @@
   <div class="headerWrap">
     <div class="header">
       <div class="logo" @click="toHome">
-        <img src="./../../assets/logo.png" alt="" />
+        <img
+          class="imageLogo"
+          src="https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/logo.png"
+          alt=""
+        />
+        <img
+          class="textLogo"
+          src="https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/muxin.png"
+          alt=""
+        />
       </div>
       <div class="project">
         <span
@@ -27,11 +36,10 @@ export default {
     const state = reactive({
       headerList: [
         { id: 0, name: "首页" },
-        { id: 1, name: "vue" },
-        { id: 2, name: "react" },
-        { id: 3, name: "git" },
-        { id: 4, name: "我的" },
-        { id: 5, name: "其他" }
+        { id: 1, name: "前端" },
+        { id: 2, name: "git" },
+        { id: 3, name: "我的" },
+        { id: 4, name: "其他" }
       ],
       headerActiveId: 0 // 头部点击项id
     });
@@ -89,13 +97,22 @@ export default {
       height: 68px;
       position: relative;
       cursor: pointer;
-      img {
+      .imageLogo {
         display: inline-block;
         width: 54px;
         height: 48px;
         position: absolute;
         top: 50%;
         left: 0;
+        transform: translateY(-50%);
+      }
+      .textLogo {
+        display: inline-block;
+        width: 66px;
+        height: 32px;
+        position: absolute;
+        top: 50%;
+        left: 60px;
         transform: translateY(-50%);
       }
     }

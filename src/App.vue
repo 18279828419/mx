@@ -1,5 +1,5 @@
 <template>
-  <Header v-if="state.headerShow" />
+  <Header class="Header" v-if="state.headerShow" />
   <router-view />
 </template>
 <script>
@@ -30,3 +30,13 @@ export default {
   }
 };
 </script>
+<style lang="less">
+#app {
+  padding-top: 68px;
+  .Header {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
+}
+</style>
