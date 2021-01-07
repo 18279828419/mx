@@ -36,7 +36,7 @@ export default {
     const state = reactive({
       headerList: [
         { id: 0, name: "首页" },
-        { id: 1, name: "前端" },
+        { id: 1, name: "技术栈" },
         { id: 2, name: "git" },
         { id: 3, name: "我的" },
         { id: 4, name: "其他" }
@@ -54,7 +54,7 @@ export default {
           router.push({ path: "/vue" });
           break;
         case 2:
-          router.push({ path: "/vue" });
+          window.open("https://github.com/18279828419/mx.git");
           break;
         case 3:
           router.push({ path: "/vue" });

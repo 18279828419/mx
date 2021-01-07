@@ -8,7 +8,19 @@
         <div class="statisMsg">
           <span>文章：{{ state.articleCount }}</span>
           <span>运行天数：{{ state.operationDate }}</span>
-          <span>访问量：{{ state.visitorCount }}</span>
+          <span class="baiduSearch">
+            <input
+              type="text"
+              name="baiduSearch"
+              placeholder="神奇的百度"
+              v-model="state.baidu"
+              id=""
+              @keydown.enter="baiduSearch"
+            />
+            <span class="search" @click="baiduSearch">
+              搜索
+            </span>
+          </span>
         </div>
       </div>
       <div class="content">
@@ -33,12 +45,22 @@
               />
             </span>
           </div>
+          <div class="visitors">
+            <p>访问量：</p>
+            <a href="https://info.flagcounter.com/LxAB"
+              ><img
+                src="https://s01.flagcounter.com/count2/LxAB/bg_FFFFFF/txt_000000/border_CCCCCC/columns_1/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
+                alt="Flag Counter"
+                border="0"
+            /></a>
+          </div>
         </div>
         <div class="centerContent">
           <div
             class="blogs"
             v-for="(item, index) in state.blogsList"
             :key="index"
+            @click="blogsCheck(item.id)"
           >
             <h2>{{ item.title }}</h2>
             <p class="details">{{ item.details }}</p>
@@ -71,25 +93,33 @@
 
 <script>
 import { reactive, onMounted } from "vue";
-import goTo from "./../../assets/js/scrollTo";
 import blogsList from "@/assets/js/blogsList";
+import { useRouter } from "vue-router";
 // @ is an alias to /src
 export default {
   name: "Home",
   components: {},
   setup() {
+    const router = useRouter();
     const state = reactive({
       articleCount: 0, // 文章数量
       operationDate: 0, // 运行天数
-      visitorCount: 15, // 访问量
-      personalMsgList: [{ msg: "沐心" }, { msg: "QQ：1392660067" }],
+      baidu: "", // 搜索
+      personalMsgList: [
+        { msg: "沐心" },
+        { msg: "QQ：1392660067" },
+        { msg: "email：1392660067@qq.com" }
+      ],
       blogsList: blogsList
     });
-    const login = () => {};
+    const baiduSearch = () => {
+      window.open("https://www.baidu.com/s?ie=UTF-8&wd=" + state.baidu);
+    };
+    const blogsCheck = id => {
+      router.push({ path: `/Page${id}` });
+    };
     // 挂载
     onMounted(() => {
-      // 置顶
-      goTo(0);
       // 文章数量
       state.articleCount = state.blogsList.length;
       // 运行天数
@@ -115,18 +145,17 @@ export default {
         "https://apip.weatherdt.com/standard/static/js/weather-standard-common.js?v=2.0";
       document.getElementsByTagName("head")[0].appendChild(script);
     });
-    return { state, login };
+    return { state, blogsCheck, baiduSearch };
   }
 };
 </script>
 <style lang="less" scoped>
 .home {
-  background: #f0f0f0;
   main {
     width: 100%;
     height: 100%;
     // background: linear-gradient(-180deg, #00abff, #00ffde);
-    // background-image: url("./../../assets/images/homeBg.jpg");
+    // background-image: url("https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/homeBg.jpg");
     // background-size: cover;
     // background-repeat: no-repeat;
     .headBg {
@@ -144,12 +173,42 @@ export default {
         display: flex;
         justify-content: space-between;
         margin: 0 auto;
-        width: 400px;
+        width: 600px;
         span {
           font-size: 14px;
           font-weight: 500;
           color: #333;
           line-height: 50px;
+        }
+        .baiduSearch {
+          display: flex;
+          align-self: center;
+          input {
+            outline: none;
+            border: 1px solid #cdcdcd;
+            border-radius: 8px;
+            height: 28px;
+            width: 180px;
+            padding-left: 15px;
+            box-sizing: border-box;
+            position: relative;
+            background: #eee;
+          }
+          .search {
+            display: inline-block;
+            height: 28px;
+            width: 40px;
+            background: #eee;
+            align-items: center;
+            color: #333;
+            line-height: 28px;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 8px;
+            margin-left: 5px;
+            cursor: pointer;
+            box-shadow: inset 0px 0px 5px #aaa;
+          }
         }
       }
     }
@@ -184,6 +243,12 @@ export default {
             font-size: 14px;
             line-height: 30px;
             display: block;
+            box-sizing: border-box;
+            &:hover {
+              background: #ddd;
+              border-radius: 8px;
+              padding-left: 10px;
+            }
           }
           .weChat {
             position: relative;
@@ -192,6 +257,11 @@ export default {
               font-size: 14px;
               line-height: 30px;
               display: block;
+              box-sizing: border-box;
+              &:hover {
+                border-radius: 8px;
+                background: #ddd;
+              }
             }
             img {
               display: none;
@@ -214,6 +284,19 @@ export default {
             //   left: 50%;
             //   transform: translateX(-50%);
             // }
+          }
+        }
+        .visitors {
+          background: #fff;
+          width: 250px;
+          padding: 20px;
+          box-sizing: border-box;
+          margin-top: 30px;
+          border-radius: 8px;
+          p {
+            font-size: 14px;
+            line-height: 14px;
+            margin: 10px 0;
           }
         }
       }

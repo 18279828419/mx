@@ -6,6 +6,7 @@
 import Header from "./components/header/index";
 import { reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import goTo from "./assets/js/scrollTo";
 export default {
   components: {
     Header
@@ -19,6 +20,8 @@ export default {
     onMounted(() => {
       // 路由导航
       router.beforeEach(to => {
+        // 置顶
+        goTo(0);
         if (to.path === "/Err404") {
           state.headerShow = false;
         } else {
@@ -32,6 +35,7 @@ export default {
 </script>
 <style lang="less">
 #app {
+  background: #f0f0f0;
   padding-top: 68px;
   .Header {
     position: fixed;
