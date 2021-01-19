@@ -46,7 +46,7 @@
             </span>
           </div>
           <div class="visitors">
-            <p>访问量：</p>
+            <p>访问量</p>
             <a href="https://info.flagcounter.com/LxAB"
               ><img
                 src="https://s01.flagcounter.com/count2/LxAB/bg_FFFFFF/txt_000000/border_CCCCCC/columns_1/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
@@ -57,7 +57,12 @@
         </div>
         <div class="centerContent">
           <div
-            class="blogs"
+            :class="{
+              blogs: true,
+              animate__animated: true,
+              animate__fadeInLeft: index % 2 === 0 ? true : false,
+              animate__fadeInRight: index % 2 !== 0 ? true : false
+            }"
             v-for="(item, index) in state.blogsList"
             :key="index"
             @click="blogsCheck(item.id)"
@@ -289,6 +294,7 @@ export default {
         .visitors {
           background: #fff;
           width: 250px;
+          min-height: 155px;
           padding: 20px;
           box-sizing: border-box;
           margin-top: 30px;

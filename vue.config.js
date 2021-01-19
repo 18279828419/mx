@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 module.exports = {
   publicPath:
@@ -64,6 +65,15 @@ module.exports = {
         }
       }
     };
+    [
+      // 配置 jQuery 插件的参数
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+        Popper: ["popper.js", "default"]
+      })
+    ];
   },
   // vue-loader 配置项
   // https://vue-loader.vuejs.org/en/options.html

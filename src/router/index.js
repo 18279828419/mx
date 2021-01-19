@@ -45,6 +45,12 @@ const routes = [
     path: "/Page5",
     name: "Page5",
     component: () => import("../views/blogs/Page5.vue")
+  },
+  {
+    // markdown
+    path: "/mar",
+    name: "mar",
+    component: () => import("../views/markdown/index.vue")
   }
   // {
   //   path: "/Home",
