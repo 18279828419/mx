@@ -9,14 +9,7 @@
           <span>文章：{{ state.articleCount }}</span>
           <span>运行天数：{{ state.operationDate }}</span>
           <span class="baiduSearch">
-            <input
-              type="text"
-              name="baiduSearch"
-              placeholder="神奇的百度"
-              v-model="state.baidu"
-              id=""
-              @keydown.enter="baiduSearch"
-            />
+            <input type="text" name="baiduSearch" placeholder="神奇的百度" v-model="state.baidu" id="" @keydown.enter="baiduSearch" />
             <span class="search" @click="baiduSearch">
               搜索
             </span>
@@ -27,10 +20,7 @@
         <div class="leftContent">
           <!-- 头像 -->
           <div class="portrait">
-            <img
-              src="https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/touxiang.png"
-              alt=""
-            />
+            <img src="https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/touxiang.png" alt="" />
           </div>
           <!-- 个人信息 -->
           <div class="personalMsg">
@@ -39,34 +29,23 @@
             </div>
             <span class="weChat">
               <span>WeChat</span>
-              <img
-                src="https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/WeChat.jpg"
-                alt=""
-              />
+              <img src="https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/WeChat.jpg" alt="" />
             </span>
           </div>
           <div class="visitors">
             <p>访问量</p>
-            <a href="https://info.flagcounter.com/LxAB"
-              ><img
+            <a href="https://info.flagcounter.com/LxAB"><img
                 src="https://s01.flagcounter.com/count2/LxAB/bg_FFFFFF/txt_000000/border_CCCCCC/columns_1/maxflags_4/viewers_0/labels_1/pageviews_1/flags_0/percent_0/"
-                alt="Flag Counter"
-                border="0"
-            /></a>
+                alt="Flag Counter" border="0" /></a>
           </div>
         </div>
         <div class="centerContent">
-          <div
-            :class="{
+          <div :class="{
               blogs: true,
               animate__animated: true,
               animate__fadeInLeft: index % 2 === 0 ? true : false,
               animate__fadeInRight: index % 2 !== 0 ? true : false
-            }"
-            v-for="(item, index) in state.blogsList"
-            :key="index"
-            @click="blogsCheck(item.id)"
-          >
+            }" v-for="(item, index) in state.blogsList" :key="index" @click="blogsCheck(item.id)">
             <h2>{{ item.title }}</h2>
             <p class="details">{{ item.details }}</p>
             <p class="footer">
@@ -74,6 +53,23 @@
               <span class="creatTime">{{ item.creatTime }}</span>
               <span class="author">{{ item.author }}</span>
             </p>
+          </div>
+          <div class="paging">
+            <nav aria-label="Page paging">
+              <ul class="pagination justify-content-center">
+                <li :class="{'page-item':true,'disabled':state.currentPage===1?true:false}">
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true" >&laquo;</span>
+                  </a>
+                </li>
+                <li :class="{'page-item':true,'active':state.currentPage===index+1?true:false}" v-for="(item,index) in state.totalPage" :key="index"><a class="page-link">{{item}}</a></li>
+                <li  :class="{'page-item':true,'disabled':state.currentPage===state.totalPage?true:false}">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
         <div class="rightContent">
@@ -104,12 +100,14 @@ import { useRouter } from "vue-router";
 export default {
   name: "Home",
   components: {},
-  setup() {
+  setup () {
     const router = useRouter();
     const state = reactive({
       articleCount: 0, // 文章数量
       operationDate: 0, // 运行天数
       baidu: "", // 搜索
+      currentPage: 1, // 当前页
+      totalPage: 0, // 总页数
       personalMsgList: [
         { msg: "沐心" },
         { msg: "QQ：1392660067" },
@@ -149,6 +147,8 @@ export default {
       script.src =
         "https://apip.weatherdt.com/standard/static/js/weather-standard-common.js?v=2.0";
       document.getElementsByTagName("head")[0].appendChild(script);
+      // 总页数
+      state.totalPage = Math.ceil(state.articleCount / 10)
     });
     return { state, blogsCheck, baiduSearch };
   }
@@ -224,6 +224,14 @@ export default {
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
+      .disabled {
+        cursor: no-drop;
+        background: #eee;
+      }
+      .active {
+        background-color: #337ab7;
+        color: #fff;
+      }
       .leftContent {
         width: 250px;
         display: inline-block;
@@ -325,6 +333,7 @@ export default {
             font-size: 16px;
             color: #333;
             font-weight: 600;
+            margin: 0;
           }
           .details {
             width: 560px;
@@ -358,6 +367,10 @@ export default {
               font-weight: 400;
             }
           }
+        }
+        // 分页
+        .paging {
+          margin: 20px auto;
         }
       }
       .rightContent {

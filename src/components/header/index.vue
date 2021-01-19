@@ -38,7 +38,7 @@ export default {
         { id: 0, name: "首页" },
         { id: 1, name: "技术栈" },
         { id: 2, name: "git" },
-        { id: 3, name: "我的" },
+        { id: 3, name: "写笔记" },
         { id: 4, name: "其他" }
       ],
       headerActiveId: 0 // 头部点击项id
@@ -57,7 +57,7 @@ export default {
           window.open("https://github.com/18279828419/mx.git");
           break;
         case 3:
-          router.push({ path: "/vue" });
+          router.push({ path: "/mar" });
           break;
         case 4:
           router.push({ path: "/vue" });

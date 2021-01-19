@@ -15,11 +15,10 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 // 全局注册 $
-let app = (createApp(App)
-  .use(store)
-  .use(router)
-  .use(VueHighlightJS)
-  .use(animated)
-  .use(VueMarkdownIt).prototype.$ = $);
-
-app.mount("#app");
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(VueHighlightJS)
+    .use(animated)
+    .use($, $)
+    .use(VueMarkdownIt).mount("#app");
