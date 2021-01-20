@@ -15,7 +15,6 @@
       </div>
       <div class="project">
         <span
-          :class="item.id === state.headerActiveId ? 'isActive' : ''"
           v-for="item in state.headerList"
           :key="item.id"
           @click="headerSelected(item.id)"
@@ -125,13 +124,12 @@ export default {
         color: #fff;
         font-size: 16px;
         font-weight: 500px;
-        cursor: pointer;
+        cursor: url(https://muxin-1258803575.cos.ap-guangzhou.myqcloud.com/cursor.ico),
+          pointer;
+        // cursor: pointer;
         &:hover {
           color: #00abff;
         }
-      }
-      .isActive {
-        color: #00abff;
       }
     }
   }

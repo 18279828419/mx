@@ -8,7 +8,7 @@ import Header from "./components/header/index";
 import Footer from "./components/footer/Footer";
 import { reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import goTo from "./assets/js/scrollTo";
+// import goTo from "./assets/js/scrollTo";
 export default {
   components: {
     Header,
@@ -22,6 +22,12 @@ export default {
     });
     // 挂载
     onMounted(() => {
+      // 判断是移动端还是pc端
+      // window.location.href = /Android|webOS|iPhone|iPod|BlackBerry/i.test(
+      //   navigator.userAgent
+      // )
+      //   ? "http://www.lcbk.top/mobile_mx/index.html#/"
+      //   : "http://www.lcbk.top/mx/index.html#/";
       // 路由导航
       router.beforeEach(to => {
         if (to.path === "/Err404") {
@@ -32,7 +38,7 @@ export default {
           state.footerShow = true;
         }
         // 置顶
-        goTo(0);
+        window.scrollTo(0, 0);
       });
     });
     return { state };
@@ -46,9 +52,10 @@ export default {
   .Header {
     position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 15;
   }
   .Footer {
+    z-index: 15;
     overflow: hidden;
   }
 }
